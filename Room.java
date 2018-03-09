@@ -14,12 +14,12 @@
  */
 public class Room 
 {
-    public String description;
-    public Room northExit;
-    public Room southExit;
-    public Room eastExit;
-    public Room westExit;
-    public Room southEastExit;
+    private String description;
+    private Room northExit;
+    private Room southExit;
+    private Room eastExit;
+    private Room westExit;
+    private Room southEastExit;
 
     /**
      * Create a room described "description". Initially, it has
@@ -62,4 +62,57 @@ public class Room
         return description;
     }
 
+    /**
+     * Devuelve la sala asociada a la cadena que contiene la direccion que 
+     * el usuario introduzca por parametro o "null" si no existe salida.
+     * @param direccion El texto que contiene la direccion que podria tomar 
+     * la sala (direcciones posibles: "north", "east", "south", "west", "southeast").
+     * @return La sala con la direccion de la salida correspondiente o "null" si no 
+     * existe salida.
+     */
+    public Room getExit(String direccion) {        
+        Room salidaElegida = null;
+        if(direccion.equals("north")) {
+            salidaElegida = northExit;
+        }
+        else if(direccion.equals("east")) {
+            salidaElegida = eastExit;
+        }
+        else if(direccion.equals("south")) {
+            salidaElegida = southExit;
+        }
+        else if(direccion.equals("west")) {
+            salidaElegida = westExit;
+        }
+        else if(direccion.equals("southeast")) {
+            salidaElegida = southEastExit;
+        }
+        return salidaElegida;
+    }
+    
+    /**
+     * Return a description of the room's exits.
+     * For example: "Exits: north east west"
+     *
+     * @ return A description of the available exits.
+     */
+    public String getExitString() {
+        String salidasExistentes = "Exits: ";
+        if(northExit != null) {
+            salidasExistentes += "north ";
+        }
+        if(eastExit != null) {
+            salidasExistentes += "east ";
+        }
+        if(southExit != null) {
+            salidasExistentes += "south ";
+        }
+        if(westExit != null) {
+            salidasExistentes += "west ";
+        }
+        if(southEastExit != null) {
+            salidasExistentes += "southeast";
+        }
+        return salidasExistentes;
+    }
 }
