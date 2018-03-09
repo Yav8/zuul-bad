@@ -45,12 +45,12 @@ public class Game
         casaDelLadron = new Room("en la casa del ladron, veamos si hay alguna pista por aqui sobre su paradero... Hmm he encontrado una foto de su novia, si no me equivoco trabaja en el centro comercial, puede que el ladron haya ido a visitarla para contarle sus hazañas...");
         
         // initialise room exits
-        tienda.setExits(parque, casino, null, casaDelJugador, null);
-        centroComercial.setExits(casaDelJugador, null, null, null, null);
-        parque.setExits(null, null, tienda, null, null);
-        casaDelJugador.setExits(null, tienda, centroComercial, null, null);
-        casino.setExits(null, null, null, tienda, casaDelLadron);
-        casaDelLadron.setExits(null, null, null, null, null);
+        tienda.setExits(parque, casino, null, casaDelJugador, null, null);
+        centroComercial.setExits(casaDelJugador, null, null, null, null, null);
+        parque.setExits(null, null, tienda, null, null, null);
+        casaDelJugador.setExits(null, tienda, centroComercial, null, null, null);
+        casino.setExits(null, null, null, tienda, casaDelLadron, null);
+        casaDelLadron.setExits(null, null, null, null, null, casino);
 
         currentRoom = tienda;  // start game outside
     }
@@ -173,8 +173,8 @@ public class Game
     }
     
     /**
-     * Evita la repeticion de codigo de los metodos printWelcome y
-     * goRoom
+     * Muestra por pantalla la informacion de la sala 
+     * actual y las salidas posibles.
      */
     private void printLocationInfo() {
         System.out.println("You are " + currentRoom.getDescription());
