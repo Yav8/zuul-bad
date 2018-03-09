@@ -34,23 +34,25 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room tienda, centroComercial, parque, casaDelJugador, casino, casaDelLadron;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        tienda = new Room("en la tienda donde se ha producido un robo de varios productos. Como policia que soy encontrare a ese delincuente.");
+        centroComercial = new Room("en el centro comercial, donde se escuchan ruidos y gritos proveniendo de una seccion de la segunda planta. Al llegar alli, me encuentro al ladron robando mas productos y pertenecian a la seccion en donde trabajaba su novia (Supongo que hay gente a la que le importa mas el dinero que cualquier otra cosa en esta vida...) ¡PUM! Ya eres mio, no saldras de la carcel en muchos años. La novia del ladron dice entre lloros y llantos: Gracias por darle su merecido a ese miserable traidor.");
+        parque = new Room("en el parque. No parece que el ladron este por aqui. Buscare en otra parte.");
+        casaDelJugador = new Room("en tu propia casa. El ladron tampoco esta aqui.");
+        casino = new Room("en el casino. Segun he escuchado, suele venir el ladron para obtener informacion acerca de la seguridad de las diferentes tiendas de la ciudad. Lamentablemente, no hay pistas por aqui.");
+        casaDelLadron = new Room("en la casa del ladron, veamos si hay alguna pista por aqui sobre su paradero... Hmm he encontrado una foto de su novia, si no me equivoco trabaja en el centro comercial, puede que el ladron haya ido a visitarla para contarle sus hazañas...");
         
         // initialise room exits
-        outside.setExits(null, theater, lab, pub);
-        theater.setExits(null, null, null, outside);
-        pub.setExits(null, outside, null, null);
-        lab.setExits(outside, office, null, null);
-        office.setExits(null, null, null, lab);
+        tienda.setExits(parque, casino, null, casaDelJugador);
+        centroComercial.setExits(casaDelJugador, null, null, null);
+        parque.setExits(null, null, tienda, null);
+        casaDelJugador.setExits(null, tienda, centroComercial, null);
+        casino.setExits(casaDelLadron, null, null, tienda);
+        casaDelLadron.setExits(null, null, casino, null);
 
-        currentRoom = outside;  // start game outside
+        currentRoom = tienda;  // start game outside
     }
 
     /**
