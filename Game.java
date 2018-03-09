@@ -45,12 +45,12 @@ public class Game
         casaDelLadron = new Room("en la casa del ladron, veamos si hay alguna pista por aqui sobre su paradero... Hmm he encontrado una foto de su novia, si no me equivoco trabaja en el centro comercial, puede que el ladron haya ido a visitarla para contarle sus hazañas...");
         
         // initialise room exits
-        tienda.setExits(parque, casino, null, casaDelJugador);
-        centroComercial.setExits(casaDelJugador, null, null, null);
-        parque.setExits(null, null, tienda, null);
-        casaDelJugador.setExits(null, tienda, centroComercial, null);
-        casino.setExits(casaDelLadron, null, null, tienda);
-        casaDelLadron.setExits(null, null, casino, null);
+        tienda.setExits(parque, casino, null, casaDelJugador, null);
+        centroComercial.setExits(casaDelJugador, null, null, null, null);
+        parque.setExits(null, null, tienda, null, null);
+        casaDelJugador.setExits(null, tienda, centroComercial, null, null);
+        casino.setExits(null, null, null, tienda, casaDelLadron);
+        casaDelLadron.setExits(null, null, null, null, null);
 
         currentRoom = tienda;  // start game outside
     }
@@ -158,6 +158,9 @@ public class Game
         if(direction.equals("west")) {
             nextRoom = currentRoom.westExit;
         }
+        if(direction.equals("southeast")) {
+            nextRoom = currentRoom.southEastExit;
+        }
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
@@ -202,6 +205,9 @@ public class Game
         }
         if(currentRoom.westExit != null) {
             System.out.print("west ");
+        }
+        if(currentRoom.southEastExit != null) {
+            System.out.print("southeast ");
         }
         System.out.println();
     }
