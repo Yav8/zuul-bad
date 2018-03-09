@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * Class Room - a room in an adventure game.
  *
@@ -15,12 +17,7 @@
 public class Room 
 {
     private String description;
-    private Room northExit;
-    private Room southExit;
-    private Room eastExit;
-    private Room westExit;
-    private Room southEastExit;
-    private Room northWestExit;
+    private HashMap<String, Room> salidas;
 
     /**
      * Create a room described "description". Initially, it has
@@ -31,6 +28,7 @@ public class Room
     public Room(String description) 
     {
         this.description = description;
+        salidas = new HashMap<>();
     }
 
     /**
@@ -40,21 +38,23 @@ public class Room
      * @param east The east east.
      * @param south The south exit.
      * @param west The west exit.
+     * @param southEast The southEast exit.
+     * @param northWest The northWest exit.
      */
     public void setExits(Room north, Room east, Room south, Room west, Room southEast, Room northWest) 
     {
         if(north != null)
-            northExit = north;
+            salidas.put("north", north);
         if(east != null)
-            eastExit = east;
+            salidas.put("east", east);
         if(south != null)
-            southExit = south;
+            salidas.put("south", south);
         if(west != null)
-            westExit = west;
+            salidas.put("west", west);
         if(southEast != null)
-            southEastExit = southEast;
+            salidas.put("southeast", southEast);
         if(northWest != null)
-            northWestExit = northWest;
+            salidas.put("northwest", northWest);
     }
 
     /**
@@ -69,31 +69,13 @@ public class Room
      * Devuelve la sala asociada a la cadena que contiene la direccion que 
      * el usuario introduzca por parametro o "null" si no existe salida.
      * @param direccion El texto que contiene la direccion que podria tomar 
-     * la sala (direcciones posibles: "north", "east", "south", "west", "southeast").
+     * la sala (direcciones posibles: "north", "east", "south", "west", "southeast", 
+     * "northwest").
      * @return La sala con la direccion de la salida correspondiente o "null" si no 
      * existe salida.
      */
-    public Room getExit(String direccion) {        
-        Room salidaElegida = null;
-        if(direccion.equals("north")) {
-            salidaElegida = northExit;
-        }
-        else if(direccion.equals("east")) {
-            salidaElegida = eastExit;
-        }
-        else if(direccion.equals("south")) {
-            salidaElegida = southExit;
-        }
-        else if(direccion.equals("west")) {
-            salidaElegida = westExit;
-        }
-        else if(direccion.equals("southeast")) {
-            salidaElegida = southEastExit;
-        }
-        else if(direccion.equals("northwest")) {
-            salidaElegida = northWestExit;
-        }
-        return salidaElegida;
+    public Room getExit(String direccion) {                
+        return salidas.get(direccion);
     }
     
     /**
@@ -103,24 +85,9 @@ public class Room
      * @ return A description of the available exits.
      */
     public String getExitString() {
-        String salidasExistentes = "Exits: ";
-        if(northExit != null) {
-            salidasExistentes += "north ";
-        }
-        if(eastExit != null) {
-            salidasExistentes += "east ";
-        }
-        if(southExit != null) {
-            salidasExistentes += "south ";
-        }
-        if(westExit != null) {
-            salidasExistentes += "west ";
-        }
-        if(southEastExit != null) {
-            salidasExistentes += "southeast ";
-        }
-        if(northWestExit != null) {
-            salidasExistentes += "northwest";
+        String salidasExistentes = "Exits:";
+        for(String salida : salidas.keySet()) {
+            salidasExistentes += " " + salida;
         }
         return salidasExistentes;
     }
