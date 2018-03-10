@@ -45,12 +45,21 @@ public class Game
         casaDelLadron = new Room("en la casa del ladron, veamos si hay alguna pista por aqui sobre su paradero... Hmm he encontrado una foto de su novia, si no me equivoco trabaja en el centro comercial, puede que el ladron haya ido a visitarla para contarle sus hazañas...");
         
         // initialise room exits
-        tienda.setExits(parque, casino, null, casaDelJugador, null, null);
-        centroComercial.setExits(casaDelJugador, null, null, null, null, null);
-        parque.setExits(null, null, tienda, null, null, null);
-        casaDelJugador.setExits(null, tienda, centroComercial, null, null, null);
-        casino.setExits(null, null, null, tienda, casaDelLadron, null);
-        casaDelLadron.setExits(null, null, null, null, null, casino);
+        tienda.setExit("north", parque);
+        tienda.setExit("east", casino);
+        tienda.setExit("west", casaDelJugador);
+        
+        centroComercial.setExit("north", casaDelJugador);
+        
+        parque.setExit("south", tienda);
+        
+        casaDelJugador.setExit("east", tienda);
+        casaDelJugador.setExit("south", centroComercial);
+        
+        casino.setExit("west", tienda);
+        casino.setExit("southeast", casaDelLadron);
+        
+        casaDelLadron.setExit("northwest", casino);
 
         currentRoom = tienda;  // start game outside
     }
