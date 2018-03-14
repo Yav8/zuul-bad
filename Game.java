@@ -119,6 +119,9 @@ public class Game
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
+        else if (commandWord.equals("look")) {
+            look();
+        }
 
         return wantToQuit;
     }
@@ -186,6 +189,14 @@ public class Game
      * actual y las salidas posibles.
      */
     private void printLocationInfo() {
+        System.out.println(currentRoom.getLongDescription());
+    }
+    
+    /**
+     * Muestra por pantalla la informacion de la sala 
+     * actual y las salidas posibles.
+     */
+    private void look() {
         System.out.println(currentRoom.getLongDescription());
     }
 }
