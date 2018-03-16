@@ -19,6 +19,9 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private boolean seHaMovidoParaAtras;
+    private boolean seHaMovido;
+    private Room lastRoom;
         
     /**
      * Create the game and initialise its internal map.
@@ -27,6 +30,8 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        seHaMovidoParaAtras = false;
+        seHaMovido = false;
     }
 
     /**
@@ -136,6 +141,10 @@ public class Game
         else if (commandWord.equals("eat")) {
             System.out.println("You have eaten now and you are not hungry anymore");
         }
+        else if(commandWord.equals("back") && !seHaMovidoParaAtras && seHaMovido) {
+            goLastRoom();
+            seHaMovidoParaAtras = true;
+        }
         
         return wantToQuit;
     }
@@ -171,6 +180,7 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
+        lastRoom = currentRoom;
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
@@ -179,9 +189,19 @@ public class Game
         else {
             currentRoom = nextRoom;
             printLocationInfo();
+            seHaMovido = true;
         }
     }
 
+    /** 
+     * Va a la anterior sala, si la hay.
+     */
+    private void goLastRoom() 
+    {
+        currentRoom = lastRoom;
+        printLocationInfo();
+    }
+    
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
