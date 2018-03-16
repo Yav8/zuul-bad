@@ -102,4 +102,20 @@ public class Room
     public void addObjeto(String descripcionObjeto, int peso) {
         listaDeObjetos.add(new Item(descripcionObjeto, peso));
     }
+    
+    /**
+     * Elimina el objeto pasado por parametro.
+     * @param objeto El objeto que va a ser eliminado.
+     */
+    public void eliminarObjeto(Item objeto) {
+        listaDeObjetos.remove(objeto);
+    }
+    
+    /**
+     * Devuelve la lista de objetos de la sala.
+     * @return La lista de objetos de la sala.
+     */
+    public ArrayList<Item> getListaDeObjetos() {
+        return listaDeObjetos;
+    }
 }

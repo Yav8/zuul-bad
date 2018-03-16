@@ -20,4 +20,18 @@ public class Item {
     public String getCaracteristicas() {
         return "Item: " + descripcion + " weigth: " + peso;
     }
+    
+    /**
+     * Devuelve la descripcion del objeto.
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+    
+    /**
+     * Devuelve el peso del objeto.
+     */
+    public int getPeso() {
+        return peso;
+    }
 }

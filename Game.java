@@ -1,4 +1,5 @@
 import java.util.Stack;
+import java.util.ArrayList;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -22,6 +23,9 @@ public class Game
     private Parser parser;
     private Room currentRoom;
     private Stack<Room> lastRoom;
+    private ArrayList<Item> listaDeObjetos;
+    private int pesoTotal;
+    public static final int PESO_QUE_PUEDE_LLEVAR_EL_PERSONAJE = 30;
         
     /**
      * Create the game and initialise its internal map.
@@ -31,6 +35,8 @@ public class Game
         createRooms();
         parser = new Parser();
         lastRoom = new Stack<>();
+        listaDeObjetos = new ArrayList<>();
+        pesoTotal = 0;
     }
 
     /**
@@ -51,7 +57,7 @@ public class Game
         parque = new Room("en el parque. No parece que el ladron este por aqui. Buscare en otra parte.");
         parque.addObjeto("Columpio", 40);
         parque.addObjeto("Balon", 5);
-        parque.addObjeto("Niño", 50);
+        parque.addObjeto("Niño", 29);
         
         casaDelJugador = new Room("en tu propia casa. El ladron tampoco esta aqui.");
         
@@ -143,6 +149,15 @@ public class Game
         else if(commandWord.equals("back")) {
             goLastRoom();
         }
+        else if(commandWord.equals("take")) {         
+            take(command);
+        }
+        else if(commandWord.equals("drop")) {     
+            drop(command);
+        }
+        else if(commandWord.equals("items")) {
+            items();
+        }
         
         return wantToQuit;
     }
@@ -231,5 +246,78 @@ public class Game
      */
     private void look() {
         System.out.println(currentRoom.getLongDescription());
+    }
+    
+    /**
+     * Coge el objeto que el usuario desee en la sala actual.
+     * @param command El comando que va a ser procesado.
+     */
+    private void take(Command command) {
+        int numero = 0;
+        if(command.hasSecondWord()) {
+            if(command.getSecondWord().contains("0") || command.getSecondWord().contains("1") || command.getSecondWord().contains("2") || command.getSecondWord().contains("3") || command.getSecondWord().contains("4") || command.getSecondWord().contains("5") || command.getSecondWord().contains("6") || command.getSecondWord().contains("7") || command.getSecondWord().contains("8") || command.getSecondWord().contains("9")) {
+                numero = Integer.parseInt(command.getSecondWord());
+                if(currentRoom.getListaDeObjetos().size() > 0 && command.getSecondWord().equals("" + numero) && numero <= currentRoom.getListaDeObjetos().size() && numero > 0) {
+                    pesoTotal += currentRoom.getListaDeObjetos().get(numero - 1).getPeso();
+                    if(pesoTotal < PESO_QUE_PUEDE_LLEVAR_EL_PERSONAJE) {  
+                        listaDeObjetos.add(currentRoom.getListaDeObjetos().get(numero - 1));
+                        currentRoom.eliminarObjeto(currentRoom.getListaDeObjetos().get(numero - 1));
+                    }
+                    else {
+                        pesoTotal -= currentRoom.getListaDeObjetos().get(numero - 1).getPeso();
+                        System.out.println("You can't take that item, it's too weight for you!");
+                    }
+                }
+                else {
+                    System.out.println("There is no item!");
+                }
+            }
+            else {
+                System.out.println("Choose the number of the object in the second word that you want to take!");
+            }
+        }
+        else {
+            System.out.println("Take what?");
+        }
+    }
+    
+    /**
+     * Suelta el objeto seleccionado en la sala actual.
+     * @param command El comando que va a ser procesado.
+     */
+    private void drop(Command command) {
+        int numero = 0;
+        if(command.hasSecondWord()) {
+            if(command.getSecondWord().contains("0") || command.getSecondWord().contains("1") || command.getSecondWord().contains("2") || command.getSecondWord().contains("3") || command.getSecondWord().contains("4") || command.getSecondWord().contains("5") || command.getSecondWord().contains("6") || command.getSecondWord().contains("7") || command.getSecondWord().contains("8") || command.getSecondWord().contains("9")) {
+                numero = Integer.parseInt(command.getSecondWord());
+                if(command.getSecondWord().equals("" + numero) && numero <= listaDeObjetos.size() && numero > 0) {
+                    currentRoom.addObjeto(listaDeObjetos.get(numero - 1).getDescripcion(), listaDeObjetos.get(0).getPeso());
+                    pesoTotal -= listaDeObjetos.get(numero - 1).getPeso();
+                    listaDeObjetos.remove(numero - 1);  
+                }
+                else {
+                    System.out.println("You don't have any item in that slot!");
+                } 
+            }
+            else {
+                System.out.println("Choose the number of the object in the second word that you want to drop!");
+            }
+        }
+        else {
+            System.out.println("Drop what?");
+        }
+    }
+    
+    /**
+     * Muestra por pantalla el listado de objetos que actualmente 
+     * tiene el personaje.
+     */
+    private void items() {        
+        for(Item objeto : listaDeObjetos) {
+            System.out.println(objeto.getCaracteristicas());
+        }
+        if(listaDeObjetos.isEmpty()) {
+            System.out.println("You don't have any item yet!");
+        }
     }
 }
