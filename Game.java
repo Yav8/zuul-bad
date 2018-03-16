@@ -37,12 +37,23 @@ public class Game
         Room tienda, centroComercial, parque, casaDelJugador, casino, casaDelLadron;
       
         // create the rooms
-        tienda = new Room("en la tienda donde se ha producido un robo de varios productos. Como policia que soy encontrare a ese delincuente.", new Item("Bolsa de chocolate", 5));
-        centroComercial = new Room("en el centro comercial, donde se escuchan ruidos y gritos proveniendo de una seccion de la segunda planta. Al llegar alli, me encuentro al ladron robando mas productos y pertenecian a la seccion en donde trabajaba su novia (Supongo que hay gente a la que le importa mas el dinero que cualquier otra cosa en esta vida...) ¡PUM! Ya eres mio, no saldras de la carcel en muchos años. La novia del ladron dice entre lloros y llantos: Gracias por darle su merecido a ese miserable traidor.", new Item("Ladron", 65));
-        parque = new Room("en el parque. No parece que el ladron este por aqui. Buscare en otra parte.", new Item("Columpio", 50));
-        casaDelJugador = new Room("en tu propia casa. El ladron tampoco esta aqui.", new Item("Bolsa de basura", 10));
-        casino = new Room("en el casino. Segun he escuchado, suele venir el ladron para obtener informacion acerca de la seguridad de las diferentes tiendas de la ciudad. Lamentablemente, no hay pistas por aqui.", null);
-        casaDelLadron = new Room("en la casa del ladron, veamos si hay alguna pista por aqui sobre su paradero... Hmm he encontrado una foto de su novia, si no me equivoco trabaja en el centro comercial, puede que el ladron haya ido a visitarla para contarle sus hazañas...", new Item("Cuadro", 5));
+        tienda = new Room("en la tienda donde se ha producido un robo de varios productos. Como policia que soy encontrare a ese delincuente.");
+        tienda.addObjeto("Caja de galletas", 10);
+        tienda.addObjeto("Bolsa de cereales", 4);
+        
+        centroComercial = new Room("en el centro comercial, donde se escuchan ruidos y gritos proveniendo de una seccion de la segunda planta. Al llegar alli, me encuentro al ladron robando mas productos y pertenecian a la seccion en donde trabajaba su novia (Supongo que hay gente a la que le importa mas el dinero que cualquier otra cosa en esta vida...) ¡PUM! Ya eres mio, no saldras de la carcel en muchos años. La novia del ladron dice entre lloros y llantos: Gracias por darle su merecido a ese miserable traidor.");
+        centroComercial.addObjeto("Ladron", 65);
+        
+        parque = new Room("en el parque. No parece que el ladron este por aqui. Buscare en otra parte.");
+        parque.addObjeto("Columpio", 40);
+        parque.addObjeto("Balon", 5);
+        parque.addObjeto("Niño", 50);
+        
+        casaDelJugador = new Room("en tu propia casa. El ladron tampoco esta aqui.");
+        
+        casino = new Room("en el casino. Segun he escuchado, suele venir el ladron para obtener informacion acerca de la seguridad de las diferentes tiendas de la ciudad. Lamentablemente, no hay pistas por aqui.");
+        
+        casaDelLadron = new Room("en la casa del ladron, veamos si hay alguna pista por aqui sobre su paradero... Hmm he encontrado una foto de su novia, si no me equivoco trabaja en el centro comercial, puede que el ladron haya ido a visitarla para contarle sus hazañas...");
         
         // initialise room exits
         tienda.setExit("north", parque);
