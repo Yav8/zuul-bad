@@ -81,9 +81,14 @@ public class Player {
     public void coger(Command command) {
         if(command.hasSecondWord()) {
             String segundaPalabra = command.getSecondWord();
-            if(currentRoom.getObjeto(segundaPalabra) != null) {                
-                listaDeObjetosDelJugador.add(currentRoom.getObjeto(segundaPalabra));
-                currentRoom.removeObjeto(segundaPalabra);
+            if(currentRoom.getObjeto(segundaPalabra) != null) {  
+                if(currentRoom.getObjeto(segundaPalabra).puedeSerCogidoElObjeto()) {
+                    listaDeObjetosDelJugador.add(currentRoom.getObjeto(segundaPalabra));
+                    currentRoom.removeObjeto(segundaPalabra);
+                }
+                else {
+                    System.out.println("This item can't be picked up!");
+                }
             }
             else {
                 System.out.println("Choose the ID of one item!");

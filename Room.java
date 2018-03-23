@@ -99,8 +99,8 @@ public class Room
     /**
      * Añade objetos a la sala.
      */
-    public void addObjeto(String descripcionObjeto, String id, int peso) {
-        listaDeObjetos.add(new Item(descripcionObjeto, id, peso));
+    public void addObjeto(String descripcionObjeto, String id, int peso, boolean canBePickedUp) {
+        listaDeObjetos.add(new Item(descripcionObjeto, id, peso, canBePickedUp));
     }
     
     /**

@@ -6,6 +6,7 @@ public class Item {
     String descripcion;
     String id;
     int peso;
+    boolean canBePickedUp;
     
     /**
      * Constructor para objetos de la clase Item.
@@ -13,10 +14,11 @@ public class Item {
      * @param id La ID del objeto.
      * @param peso El peso del objeto.
      */
-    public Item(String descripcion, String id, int peso) {
+    public Item(String descripcion, String id, int peso, boolean canBePickedUp) {
         this.descripcion = descripcion;
         this.id = id;
         this.peso = peso;
+        this.canBePickedUp = canBePickedUp;
     }
     
     /**
@@ -33,5 +35,15 @@ public class Item {
      */
     public String getID() {
         return id;
+    }
+    
+    /**
+     * Devuelve si el objeto puede ser cogido o no 
+     * por el jugador.
+     * @return Devuelve true si el objeto puede ser 
+     * cogido por el jugador y false en caso contrario.
+     */
+    public boolean puedeSerCogidoElObjeto() {
+        return canBePickedUp;
     }
 }
