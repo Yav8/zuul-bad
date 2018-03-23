@@ -98,4 +98,22 @@ public class Player {
             System.out.println("Take what?");
         }
     }
+    
+    /**
+     * Muestra por pantalla las caracteristicas de 
+     * todos los objetos que tiene el jugador actualmente.
+     */
+    public void mostrarObjetos() {
+        int pesoTotalDeTodosLosObjetosQueTieneElJugador = 0;
+        if(!listaDeObjetosDelJugador.isEmpty()) {
+            for(Item objeto : listaDeObjetosDelJugador) {
+                pesoTotalDeTodosLosObjetosQueTieneElJugador += objeto.getPeso();
+                System.out.println(objeto.getCaracteristicas());
+            }
+            System.out.println("Total weight of all items: " + pesoTotalDeTodosLosObjetosQueTieneElJugador + " kg");
+        }
+        else {
+            System.out.println("You don't have any item yet!");
+        }
+    }
 }

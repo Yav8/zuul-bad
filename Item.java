@@ -26,7 +26,7 @@ public class Item {
      * @return Devuelve las características del objeto
      */
     public String getCaracteristicas() {
-        return "Item: " + descripcion + " - ID: " + id + " - weight: " + peso;
+        return "Item: " + descripcion + " - ID: " + id + " - weight: " + peso + " kg";
     }
     
     /**
@@ -45,5 +45,13 @@ public class Item {
      */
     public boolean puedeSerCogidoElObjeto() {
         return canBePickedUp;
+    }
+    
+    /**
+     * Devuelve el peso del objeto.
+     * @return Devuelve un int que es el peso del objeto.
+     */
+    public int getPeso() {
+        return peso;
     }
 }
