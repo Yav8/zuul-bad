@@ -147,6 +147,9 @@ public class Game
         else if(commandWord.equals("items")) {
             jugador.mostrarObjetos();
         }
+        else if(commandWord.equals("drop")) {
+            jugador.tirar(command);
+        }
         
         return wantToQuit;
     }

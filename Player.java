@@ -116,4 +116,40 @@ public class Player {
             System.out.println("You don't have any item yet!");
         }
     }
+    
+    /**
+     * Tira el objeto que el jugador desee en la sala actual 
+     * a traves del ID que tenga el objeto.
+     * @param command El comando que va a ser procesado.
+     */
+    public void tirar(Command command) {
+        if(command.hasSecondWord()) {
+            String segundaPalabra = command.getSecondWord();
+            if(getObjeto(segundaPalabra) != null && listaDeObjetosDelJugador.size() > 0) {  
+                currentRoom.addObjeto2(getObjeto(segundaPalabra));
+                listaDeObjetosDelJugador.remove(getObjeto(segundaPalabra));
+            }
+            else {
+                System.out.println("Choose the ID of one item that you have!");
+            }
+        }
+        else {
+            System.out.println("Drop what?");
+        }
+    }
+    
+    /**
+     * Devuelve el objeto que tiene el jugador a traves de su ID.
+     * @param id El ID del objeto del jugador a devolver.
+     * @return Devuelve el objeto del jugador a traves de su ID.
+     */
+    private Item getObjeto(String id) {
+        Item objeto = null;
+        for(int contador = 0; contador < listaDeObjetosDelJugador.size() && objeto == null; contador++) {
+            if(listaDeObjetosDelJugador.get(contador).getID().equals(id)) {
+                objeto = listaDeObjetosDelJugador.get(contador);
+            }
+        }
+        return objeto;
+    }
 }

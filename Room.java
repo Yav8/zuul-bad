@@ -131,4 +131,12 @@ public class Room
             }
         }
     }
+    
+    /**
+     * Añade objetos a la sala.
+     * @param objeto El objeto que va a ser añadido.
+     */
+    public void addObjeto2(Item objeto) {
+        listaDeObjetos.add(objeto);
+    }
 }
