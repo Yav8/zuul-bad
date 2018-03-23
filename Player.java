@@ -1,11 +1,15 @@
 import java.util.Stack;
+import java.util.ArrayList;
 
 public class Player {
     private Room currentRoom;
     private Stack<Room> lastRoom;
+    private ArrayList<Item> listaDeObjetosDelJugador;
+    
     public Player(Room currentRoom) {
         this.currentRoom = currentRoom;
         lastRoom = new Stack<>();
+        listaDeObjetosDelJugador = new ArrayList<>();
     }
     
     /** 
@@ -67,5 +71,26 @@ public class Player {
      */
     public Room getCurrentRoom() {
         return currentRoom;
+    }
+    
+    /**
+     * Coge el objeto que el jugador desee en la sala actual 
+     * a traves del ID que tenga el objeto.
+     * @param command El comando que va a ser procesado.
+     */
+    public void coger(Command command) {
+        if(command.hasSecondWord()) {
+            String segundaPalabra = command.getSecondWord();
+            if(currentRoom.getObjeto(segundaPalabra) != null) {                
+                listaDeObjetosDelJugador.add(currentRoom.getObjeto(segundaPalabra));
+                currentRoom.removeObjeto(segundaPalabra);
+            }
+            else {
+                System.out.println("Choose the ID of one item!");
+            }
+        }
+        else {
+            System.out.println("Take what?");
+        }
     }
 }

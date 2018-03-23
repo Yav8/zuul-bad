@@ -99,7 +99,36 @@ public class Room
     /**
      * Añade objetos a la sala.
      */
-    public void addObjeto(String descripcionObjeto, int peso) {
-        listaDeObjetos.add(new Item(descripcionObjeto, peso));
+    public void addObjeto(String descripcionObjeto, String id, int peso) {
+        listaDeObjetos.add(new Item(descripcionObjeto, id, peso));
+    }
+    
+    /**
+     * Devuelve un objeto de la sala.
+     * @param id El ID del objeto.
+     * @return El objeto de la sala.
+     */
+    public Item getObjeto(String id) {
+        Item objeto = null;
+        for(int contador = 0; contador < listaDeObjetos.size() && objeto == null; contador++) {
+            if(listaDeObjetos.get(contador).getID().equals(id)) {
+                objeto = listaDeObjetos.get(contador);
+            }
+        }
+        return objeto;
+    }
+    
+    /**
+     * Elimina un objeto de la sala introduciendo su ID.
+     * @param id La ID del objeto que va a ser eliminado.
+     */
+    public void removeObjeto(String id) {
+        boolean idEncontrada = false;
+        for(int contador = 0; contador < listaDeObjetos.size() && idEncontrada == false; contador++) {
+            if(listaDeObjetos.get(contador).getID().equals(id)) {
+                listaDeObjetos.remove(contador);
+                idEncontrada = true;
+            }
+        }
     }
 }

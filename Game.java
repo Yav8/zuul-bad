@@ -40,16 +40,16 @@ public class Game
       
         // create the rooms
         tienda = new Room("en la tienda donde se ha producido un robo de varios productos. Como policia que soy encontrare a ese delincuente.");
-        tienda.addObjeto("Caja de galletas", 10);
-        tienda.addObjeto("Bolsa de cereales", 4);
+        tienda.addObjeto("Caja de galletas", "galletas", 10);
+        tienda.addObjeto("Bolsa de cereales", "cereales", 4);
         
         centroComercial = new Room("en el centro comercial, donde se escuchan ruidos y gritos proveniendo de una seccion de la segunda planta. Al llegar alli, me encuentro al ladron robando mas productos y pertenecian a la seccion en donde trabajaba su novia (Supongo que hay gente a la que le importa mas el dinero que cualquier otra cosa en esta vida...) ¡PUM! Ya eres mio, no saldras de la carcel en muchos años. La novia del ladron dice entre lloros y llantos: Gracias por darle su merecido a ese miserable traidor.");
-        centroComercial.addObjeto("Ladron", 65);
+        centroComercial.addObjeto("Ladron", "ladron", 65);
         
         parque = new Room("en el parque. No parece que el ladron este por aqui. Buscare en otra parte.");
-        parque.addObjeto("Columpio", 40);
-        parque.addObjeto("Balon", 5);
-        parque.addObjeto("Niño", 50);
+        parque.addObjeto("Columpio", "columpio", 40);
+        parque.addObjeto("Balon", "balon", 5);
+        parque.addObjeto("Niño", "niño", 50);
         
         casaDelJugador = new Room("en tu propia casa. El ladron tampoco esta aqui.");
         
@@ -140,6 +140,9 @@ public class Game
         }
         else if(commandWord.equals("back")) {
             jugador.goLastRoom();
+        }
+        else if(commandWord.equals("take")) {
+            jugador.coger(command);
         }
         
         return wantToQuit;
