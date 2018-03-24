@@ -11,7 +11,7 @@ public class Player {
     private Room currentRoom;
     private Stack<Room> lastRoom;
     private ArrayList<Item> listaDeObjetosDelJugador;
-    public static final int PESO_MAXIMO_QUE_PUEDE_SOPORTAR_EL_JUGADOR = 35;
+    private int pesoMaximoQuePuedeSoportarElJugador;
     private int pesoTotalDeTodosLosObjetosQueTieneElJugador;
     
     /**
@@ -22,6 +22,7 @@ public class Player {
         this.currentRoom = currentRoom;
         lastRoom = new Stack<>();
         listaDeObjetosDelJugador = new ArrayList<>();
+        pesoMaximoQuePuedeSoportarElJugador = 35;
         pesoTotalDeTodosLosObjetosQueTieneElJugador = 0;
     }
     
@@ -97,7 +98,7 @@ public class Player {
             if(objeto != null) {  
                 if(objeto.puedeSerCogidoElObjeto()) {
                     pesoTotalDeTodosLosObjetosQueTieneElJugador += objeto.getPeso();
-                    if(pesoTotalDeTodosLosObjetosQueTieneElJugador <= PESO_MAXIMO_QUE_PUEDE_SOPORTAR_EL_JUGADOR) {
+                    if(pesoTotalDeTodosLosObjetosQueTieneElJugador <= pesoMaximoQuePuedeSoportarElJugador) {
                         listaDeObjetosDelJugador.add(objeto);
                         currentRoom.removeObjeto(objeto.getID());
                     }
@@ -170,5 +171,34 @@ public class Player {
             }
         }
         return objeto;
+    }
+    
+    /**
+     * El jugador bebe la bebida energetica que lleve
+     * en su mochila a traves de la ID del objeto y despues 
+     * la tira.
+     * @param command El comando que va a ser procesado.
+     */
+    public void beber(Command command) {
+        if(command.hasSecondWord()) {
+            Item objeto = getObjeto(command.getSecondWord());
+            if(objeto != null) {  
+                if(objeto.getID().equals("bebida")) {
+                    pesoMaximoQuePuedeSoportarElJugador += 15;
+                    pesoTotalDeTodosLosObjetosQueTieneElJugador -= objeto.getPeso();
+                    listaDeObjetosDelJugador.remove(objeto);
+                    System.out.println("Wow you feel amazing right now! You can take items for a total weight of " + pesoMaximoQuePuedeSoportarElJugador + " kg!");
+                }
+                else {
+                    System.out.println("You can't drink that item!");
+                }
+            }
+            else {
+                System.out.println("Choose the ID of one item that you can drink!");
+            }
+        }
+        else {
+            System.out.println("Drink what?");
+        }
     }
 }
