@@ -1,15 +1,28 @@
 import java.util.Stack;
 import java.util.ArrayList;
 
+/**
+ * La clase Player representa los jugadores que pueden 
+ * desplazarse por las salas del juego.
+ * @author Javier de Cea Dominguez
+ * @version 2018.03.23
+ */
 public class Player {
     private Room currentRoom;
     private Stack<Room> lastRoom;
     private ArrayList<Item> listaDeObjetosDelJugador;
+    public static final int PESO_MAXIMO_QUE_PUEDE_SOPORTAR_EL_JUGADOR = 35;
+    private int pesoTotalDeTodosLosObjetosQueTieneElJugador;
     
+    /**
+     * Constructor para objetos de la clase Player.
+     * @param currentRoom la sala actual en la que se encuentra el jugador.
+     */
     public Player(Room currentRoom) {
         this.currentRoom = currentRoom;
         lastRoom = new Stack<>();
         listaDeObjetosDelJugador = new ArrayList<>();
+        pesoTotalDeTodosLosObjetosQueTieneElJugador = 0;
     }
     
     /** 
@@ -83,8 +96,15 @@ public class Player {
             String segundaPalabra = command.getSecondWord();
             if(currentRoom.getObjeto(segundaPalabra) != null) {  
                 if(currentRoom.getObjeto(segundaPalabra).puedeSerCogidoElObjeto()) {
-                    listaDeObjetosDelJugador.add(currentRoom.getObjeto(segundaPalabra));
-                    currentRoom.removeObjeto(segundaPalabra);
+                    pesoTotalDeTodosLosObjetosQueTieneElJugador += currentRoom.getObjeto(segundaPalabra).getPeso();
+                    if(pesoTotalDeTodosLosObjetosQueTieneElJugador <= PESO_MAXIMO_QUE_PUEDE_SOPORTAR_EL_JUGADOR) {
+                        listaDeObjetosDelJugador.add(currentRoom.getObjeto(segundaPalabra));
+                        currentRoom.removeObjeto(segundaPalabra);
+                    }
+                    else {
+                        pesoTotalDeTodosLosObjetosQueTieneElJugador -= currentRoom.getObjeto(segundaPalabra).getPeso();
+                        System.out.println("This item is too weight for you!");
+                    }
                 }
                 else {
                     System.out.println("This item can't be picked up!");
@@ -104,13 +124,11 @@ public class Player {
      * todos los objetos que tiene el jugador actualmente.
      */
     public void mostrarObjetos() {
-        int pesoTotalDeTodosLosObjetosQueTieneElJugador = 0;
         if(!listaDeObjetosDelJugador.isEmpty()) {
             for(Item objeto : listaDeObjetosDelJugador) {
-                pesoTotalDeTodosLosObjetosQueTieneElJugador += objeto.getPeso();
                 System.out.println(objeto.getCaracteristicas());
             }
-            System.out.println("Total weight of all items: " + pesoTotalDeTodosLosObjetosQueTieneElJugador + " kg");
+            System.out.println("Total weight of all items: " + pesoTotalDeTodosLosObjetosQueTieneElJugador + " kg.");
         }
         else {
             System.out.println("You don't have any item yet!");
@@ -127,6 +145,7 @@ public class Player {
             String segundaPalabra = command.getSecondWord();
             if(getObjeto(segundaPalabra) != null && listaDeObjetosDelJugador.size() > 0) {  
                 currentRoom.addObjeto2(getObjeto(segundaPalabra));
+                pesoTotalDeTodosLosObjetosQueTieneElJugador -= getObjeto(segundaPalabra).getPeso();
                 listaDeObjetosDelJugador.remove(getObjeto(segundaPalabra));
             }
             else {

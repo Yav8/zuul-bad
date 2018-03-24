@@ -52,6 +52,7 @@ public class Game
         parque.addObjeto("Niño", "niño", 30, true);
         
         casaDelJugador = new Room("en tu propia casa. El ladron tampoco esta aqui.");
+        casaDelJugador.addObjeto("Pesa", "pesa", 40, true);
         
         casino = new Room("en el casino. Segun he escuchado, suele venir el ladron para obtener informacion acerca de la seguridad de las diferentes tiendas de la ciudad. Lamentablemente, no hay pistas por aqui.");
         

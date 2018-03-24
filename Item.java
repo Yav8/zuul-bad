@@ -1,12 +1,14 @@
 /**
  * La clase Item permite representar la informacion
  * de los objetos que tienen las habitaciones.
+ * @author Javier de Cea Dominguez.
+ * @version 2018.03.23
  */
 public class Item {
-    String descripcion;
-    String id;
-    int peso;
-    boolean canBePickedUp;
+    private String descripcion;
+    private String id;
+    private int peso;
+    private boolean canBePickedUp;
     
     /**
      * Constructor para objetos de la clase Item.
