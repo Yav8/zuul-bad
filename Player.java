@@ -93,16 +93,16 @@ public class Player {
      */
     public void coger(Command command) {
         if(command.hasSecondWord()) {
-            String segundaPalabra = command.getSecondWord();
-            if(currentRoom.getObjeto(segundaPalabra) != null) {  
-                if(currentRoom.getObjeto(segundaPalabra).puedeSerCogidoElObjeto()) {
-                    pesoTotalDeTodosLosObjetosQueTieneElJugador += currentRoom.getObjeto(segundaPalabra).getPeso();
+            Item objeto = currentRoom.getObjeto(command.getSecondWord());
+            if(objeto != null) {  
+                if(objeto.puedeSerCogidoElObjeto()) {
+                    pesoTotalDeTodosLosObjetosQueTieneElJugador += objeto.getPeso();
                     if(pesoTotalDeTodosLosObjetosQueTieneElJugador <= PESO_MAXIMO_QUE_PUEDE_SOPORTAR_EL_JUGADOR) {
-                        listaDeObjetosDelJugador.add(currentRoom.getObjeto(segundaPalabra));
-                        currentRoom.removeObjeto(segundaPalabra);
+                        listaDeObjetosDelJugador.add(objeto);
+                        currentRoom.removeObjeto(objeto.getID());
                     }
                     else {
-                        pesoTotalDeTodosLosObjetosQueTieneElJugador -= currentRoom.getObjeto(segundaPalabra).getPeso();
+                        pesoTotalDeTodosLosObjetosQueTieneElJugador -= objeto.getPeso();
                         System.out.println("This item is too weight for you!");
                     }
                 }
@@ -142,11 +142,11 @@ public class Player {
      */
     public void tirar(Command command) {
         if(command.hasSecondWord()) {
-            String segundaPalabra = command.getSecondWord();
-            if(getObjeto(segundaPalabra) != null && listaDeObjetosDelJugador.size() > 0) {  
-                currentRoom.addObjeto2(getObjeto(segundaPalabra));
-                pesoTotalDeTodosLosObjetosQueTieneElJugador -= getObjeto(segundaPalabra).getPeso();
-                listaDeObjetosDelJugador.remove(getObjeto(segundaPalabra));
+            Item objeto = getObjeto(command.getSecondWord());
+            if(objeto != null) {  
+                currentRoom.addObjeto2(objeto);
+                pesoTotalDeTodosLosObjetosQueTieneElJugador -= objeto.getPeso();
+                listaDeObjetosDelJugador.remove(objeto);
             }
             else {
                 System.out.println("Choose the ID of one item that you have!");
