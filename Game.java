@@ -1,5 +1,3 @@
-import java.util.Stack;
-
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -57,6 +55,7 @@ public class Game
         casino = new Room("en el casino. Segun he escuchado, suele venir el ladron para obtener informacion acerca de la seguridad de las diferentes tiendas de la ciudad. Lamentablemente, no hay pistas por aqui.");
         
         casaDelLadron = new Room("en la casa del ladron, veamos si hay alguna pista por aqui sobre su paradero... Hmm he encontrado una foto de su novia, si no me equivoco trabaja en el centro comercial, puede que el ladron haya ido a visitarla para contarle sus hazañas...");
+        casaDelLadron.addObjeto("Bebida energetica", "bebida", 5, true);
         
         // initialise room exits
         tienda.setExit("north", parque);
@@ -150,6 +149,9 @@ public class Game
         }
         else if(commandWord.equals("drop")) {
             jugador.tirar(command);
+        }
+        else if(commandWord.equals("drink")) {
+            jugador.beber(command);
         }
         
         return wantToQuit;
