@@ -117,43 +117,43 @@ public class Game
     {
         boolean wantToQuit = false;
 
-        if(command.isUnknown()) {
-            System.out.println("I don't know what you mean...");
-            return false;
+        CommandWord commandWord = command.getCommandWord();
+        switch(commandWord) {
+            case UNKNOWN:
+                System.out.println("I don't know what you mean...");
+                break;
+            case HELP:
+                printHelp();
+                break;
+            case GO:
+                jugador.goRoom(command);
+                break;
+            case QUIT:
+                wantToQuit = quit(command);
+                break;
+            case LOOK:
+                look();
+                break;
+            case EAT:
+                jugador.comer();
+                break;
+            case BACK:
+                jugador.goLastRoom();
+                break;
+            case TAKE:
+                jugador.coger(command);
+                break;
+            case ITEMS:
+                jugador.mostrarObjetos();
+                break;
+            case DROP:
+                jugador.tirar(command);
+                break;
+            case DRINK:
+                jugador.beber(command);
+                break;
         }
-
-        String commandWord = command.getCommandWord();
-        if (commandWord.equals("help")) {
-            printHelp();
-        }
-        else if (commandWord.equals("go")) {
-            jugador.goRoom(command);
-        }
-        else if (commandWord.equals("quit")) {
-            wantToQuit = quit(command);
-        }
-        else if (commandWord.equals("look")) {
-            look();
-        }
-        else if (commandWord.equals("eat")) {
-            jugador.comer();
-        }
-        else if(commandWord.equals("back")) {
-            jugador.goLastRoom();
-        }
-        else if(commandWord.equals("take")) {
-            jugador.coger(command);
-        }
-        else if(commandWord.equals("items")) {
-            jugador.mostrarObjetos();
-        }
-        else if(commandWord.equals("drop")) {
-            jugador.tirar(command);
-        }
-        else if(commandWord.equals("drink")) {
-            jugador.beber(command);
-        }
-        
+       
         return wantToQuit;
     }
 
